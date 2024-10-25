@@ -1,6 +1,8 @@
 # A Lanternfly reporting platform 
-s24_team_37 Webapps Project
-Intro:
+
+s24_team_37 Webapps Project 
+
+# Intro:
 The invasion of the spotted lanternfly has become a significant ecological concern in the Pittsburgh area. These invasive pests not only pose a threat to agricultural crops but also disrupt local ecosystems. To address this issue and harness the power of community engagement, we propose the development of the Pittsburgh Spotted Lanternfly Reporting Platform – a web-based initiative that empowers residents to actively participate in the identification and tracking of spotted lanternfly sightings. Users can login to the platform and update a map that shows where lanternflies are most prominent by pinpointing the exact location where they’ve seen or killed a lanternfly. The platform also has a leaderboard that keeps track of the number of lanternflies a user has killed to encourage friendly and fun competitions. Users can also utilize the discussion board to talk to other users.
 Possible technologies that we might need:
 HTML, CSS, JavaScript: Basics for creating the structure, styling, and interactivity of the
