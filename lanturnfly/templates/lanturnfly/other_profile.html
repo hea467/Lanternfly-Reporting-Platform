@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  {% load static %}
+  <link href="{% static 'lanturnfly/base.css' %}" rel="stylesheet" type="text/css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script type="module" src="{% static 'lanturnfly/heatmap.js' %}"></script>
+  <title> {% block title %} LanternFly Spotter {% endblock %} </title>
+</head>
+
+<body>
+
+  <div id="id_header_div" class="id_header_div">
+    <div id="id_site_name" class="big-heading">
+      LanternFly Spotter
+
+      <div class="user-info">
+        <img src="{% static 'lanturnfly/logo.png' %}" id="logo" width="300" height="400">
+        <div id=id_nav_profile>
+          Good to have you here, {{user.first_name}} {{user.last_name}}!<br>
+          </a>
+          <div class="side">
+            <div id="home_page_link">
+              <a href="{% url 'map' %}">Global Map</a>
+            </div>
+
+            <div>
+              <a href="{% url 'heatmap'%}"> My Reports </a>
+            </div>
+
+            <div id="id_nav_global_stream">
+              <a href="{% url 'global' %}"> Discussion Board </a>
+            </div>
+
+            <div id="id_nav_logout">
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content">
+    <p id="id_page_name">Profile Page for {{profile.user.first_name}} {{profile.user.last_name}}</p>
+
+
+    {% if profile.user in loggedin_profile %}
+    <form method="post" action="{% url 'unfollow' profile.user.id %}">
+      <button id="id_unfollow">Unfollow</button>
+      {% csrf_token %}
+    </form>
+    {% else %}
+    <form method="post" action="{% url 'follow' profile.user.id %}">
+      <button id="id_follow">Follow</button>
+      {% csrf_token %}
+    </form>
+    {% endif %}
+
+    <div id="map"></div>
+    <!-- prettier-ignore -->
+    <script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r, "visualization"] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+        ({ key: "AIzaSyCjxa2K0GvVjpo5sooLFF-sw8cd0wzdehM", v: "weekly" });</script>
+
+
+    <div id="coordinates" stype="display: none;">
+      <!-- {{reports|safe}} -->
+      {{reports | safe | json_script:"coordinates_data"}}
+    </div>
+
+    <div id="reporting_flys" stype="display: none;">
+      {{reporting_flys | safe | json_script:"fly_report"}}
+    </div>
+
+    <p>{{profile.user.first_name}}'s stats:</p>
+    <ul>
+      <li>Total number of reports made: {{reportNum}}</li>
+      <li>Total number of lanternflies seen: {{seeNum}}</li>
+      <li>Total number of lanternflies killed: {{killNum}}</li>
+      <li>Total number of dead trees seen: {{treeNum}}</li>
+    </ul>
+
+
+
+  </div>
+</body>
+
+</html>

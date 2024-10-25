@@ -1,0 +1,30 @@
+{% extends "lanturnfly/base.html" %}
+{% load static %}
+
+{% block user-info %}
+
+<img src="{% static 'lanturnfly/logo.png' %}" id="logo" width="400" height="400">
+<div id=id_nav_profile>
+    Good to have you here, {{user.first_name}} {{user.last_name}}!<br>
+    </a>
+
+    <div class="side">
+        <div id="home_page_link">
+            <a href="{% url 'map' %}">Global Map </a>
+        </div>
+
+        <div>
+            <a href="{% url 'heatmap'%}"> My Reports </a>
+        </div>
+
+        <div id="id_nav_global_stream">
+            <a href="{% url 'global' %}"> Discussion Board </a>
+        </div>
+
+        <div id="id_nav_logout">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

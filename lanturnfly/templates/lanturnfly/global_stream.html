@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link href="{% static 'lanturnfly/base.css' %}" rel="stylesheet" type="text/css">
+    <!-- <link href="{% static 'lanturnfly/map.css' %}" rel="stylesheet" type="text/css"> -->
+    <!-- <script src="{% static 'socialnetwork/base.js' %}" type="text/javascript"></script> -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- <script type="module" src="{% static 'lanturnfly/discussion.js' %}"></script> -->
+    <script src="{% static 'lanturnfly/discussion.js' %}" type="text/javascript"></script>
+    <!-- <script type="module" src="{% static 'lanturnfly/map.js' %}"></script> -->
+    <title> {% block title %} LanternFly Spotter {% endblock %} </title>
+</head>
+
+<body>
+
+    <div id="id_header_div" class="id_header_div">
+        <div id="id_site_name" class="big-heading">
+            LanternFly Spotter
+
+            <div class="user-info">
+                <img src="{% static 'lanturnfly/logo.png' %}" id="logo" width="300" height="400">
+                <div id=id_nav_profile>
+                    Good to have you here, {{user.first_name}} {{user.last_name}}!<br>
+                    </a>
+                    <div class="side">
+                        <div id="home_page_link">
+                            <a href="{% url 'map' %}">Global Map </a>
+                        </div>
+
+                        <div>
+                            <a href="{% url 'heatmap'%}"> My Reports </a>
+                        </div>
+
+                        <div id="id_nav_global_stream">
+                            <a href="{% url 'global' %}"> Discussion Board </a>
+                        </div>
+
+                        <div id="id_nav_logout">
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <h3 id="id_page_name">Discussion Board</h3>
+        <span id="error" class="error"></span>
+
+        {% if error %}
+        <div class="error">
+            {{error}}
+        </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'global' %}">
+            <label id="new_post">New Post:</label>
+            <input id="id_post_input_text" type="text" name="post">
+            <button id="id_post_button" type="submit">Submit</button>
+            {% csrf_token %}
+        </form>
+
+        <div id="the_posts_here"></div>
+
+
+        <script>
+
+            const addCommentURL = "{% url 'add-comment' %}"
+
+            window.onload = loadPostsGlobal;
+            window.setInterval(loadPostsGlobal, 5000);
+        </script>
+
+    </div>
+</body>
+
+</html>

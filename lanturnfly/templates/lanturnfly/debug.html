@@ -1,0 +1,13 @@
+{% extends "lanturnfly/base.html" %}
+
+{% block content %}
+<div> Here are all the reported spottings </div>
+{%for s in reports %}
+<div> reported by user: {{ s.user.first_name }} {{ s.user.last_name }} </div>
+<div> They saw it at this location: latitude: {{s.latitude}}, {{s.longitude}}</div>
+<div> They saw {{ s.see_num }} lanternflies </div>
+<div> They killed {{ s.kill_num }} lanternflies </div>
+<div> There were around {{ s.tree_num }} dying trees </div>
+<div> Pic? {{ s.picture }} </div>
+{% endfor %}
+{% endblock %}

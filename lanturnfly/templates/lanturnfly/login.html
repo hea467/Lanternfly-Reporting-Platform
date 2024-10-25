@@ -1,0 +1,22 @@
+{% extends "lanturnfly/base.html" %}
+
+{% block user-info %}
+<div>
+    <a href="{% url 'register' %}">
+        <u id="id_register_link">Register</u>
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<p id="id_page_name">Login</p>
+
+<form method="post" action="{% url 'login' %}">
+    <table>
+        {{form.as_table}}
+    </table>
+    {% csrf_token %}
+    <button id="id_login_button" type="submit">Submit</button>
+</form>
+
+{% endblock %}

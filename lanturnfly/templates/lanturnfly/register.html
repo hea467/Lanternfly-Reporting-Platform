@@ -1,0 +1,38 @@
+{% extends "lanturnfly/base.html" %}
+
+
+{% block user-info %}
+    <div>
+        <a href="{% url 'login' %}">
+            <u id="id_login_link">Login</u>
+        </a>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    <p id="id_page_name">Register:</p>
+
+    <form method="post" action="{% url 'register' %}">
+        <table>
+            {% for field in form.visible_fields %}
+                <tr>
+                    <td>{{field.label_tag}}</td>
+                    <td>{{field}}</td>
+                    <td class="errorlist">
+                        {% for error in field.errors %} {{error}} {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% csrf_token %}
+        <button id="id_register_button" type="submit">Register</button>
+    </form>
+
+    {% for error in form.non_field_errors %}
+        <p class="errorlist">
+            {{ error }}
+        </p>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "lanturnfly/user-info.html" %}
+{% load static %}
+
+{% block content %}
+<h3>Here are all of {{first_name}}'s reported spottings: </h3>
+{%for s in reports %}
+<div> reported by user: {{ s.user.first_name }} {{ s.user.last_name }} </div>
+<div> They saw it at this location: latitude: {{s.latitude}}, {{s.longitude}}</div>
+<div> They saw {{ s.see_num }} lanternflies </div>
+<div> They killed {{ s.kill_num }} lanternflies </div>
+<div> There were around {{ s.tree_num }} dying trees </div>
+{%if not s.picture%}
+<div>no pic</div>
+{% else %}
+<img src="{% url 'photo' s.id %}" id="id_user_picture" width="350" height="333">
+{% endif %}
+<div> </div>
+
+{% endfor %}
+{% endblock %}
